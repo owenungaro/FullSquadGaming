@@ -44,7 +44,8 @@ async def list_server_users(guild_id: int):
     async for member in guild.fetch_members(limit=None):
         members.append({
             "id": str(member.id),
-            "name": f"{member.name}#{member.discriminator}"
+            "name": f"{member.name}#{member.discriminator}",
+            "avatar_url": str(member.display_avatar.url)
         })
 
     return members

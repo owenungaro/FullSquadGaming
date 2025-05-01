@@ -3,36 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <title>Bot Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Bot Dashboard</h1>
+  <div class="dashboard">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Guild Settings</h2>
+      <label for="guild">Guild ID:</label>
+      <input id="guild" type="text" value="838490967677337610" placeholder="Enter guild ID">
+      <button id="load">Load Users</button>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-panel">
+      
+      <!-- User Selection -->
+      <section class="user-selection">
+        <h2>Users</h2>
+        <div class="user-widget" id="users">
+          <!-- users will be rendered here -->
+        </div>        
+      </section>
 
-  <label for="guild">Guild ID:</label>
-  <input id="guild" type="text" placeholder="Enter guild ID">
-  <button id="load">Load Users</button>
+      <!-- Inputs -->
+      <section id="step2" class="inputs" style="display:none;">
+        <h2>Inputs</h2>
+        <label for="input1">Input 1:</label>
+        <input id="input1" type="text">
+        <label for="input2">Input 2:</label>
+        <input id="input2" type="text">
+      </section>
 
-  <div style="margin-top:1em;">
-    <select id="users" multiple size="8" style="width:300px;">
-      <option value="" disabled>-- users will appear here --</option>
-    </select>
-  </div>
+      <!-- Actions -->
+      <section id="step3" class="actions" style="display:none;">
+        <button id="chooseRandom" disabled>Choose Random User</button>
+      </section>
 
-  <div id="step2" style="display:none; margin-top:1em;">
-    <label for="input1">Input 1:</label>
-    <input id="input1" type="text">
-    <br>
-    <label for="input2">Input 2:</label>
-    <input id="input2" type="text">
-  </div>
+      <!-- Result -->
+      <section id="result" class="result" style="display:none;">
+        <strong>Selected User:</strong>
+        <span id="selectedUser"></span>
+        <button id="confirmBtn" disabled>Confirm</button>
+      </section>
 
-  <div id="step3" style="display:none; margin-top:1em;">
-    <button id="chooseRandom" disabled>Choose Random User</button>
-  </div>
-
-  <div id="result" style="display:none; margin-top:1em;">
-    <strong>Selected User:</strong>
-    <span id="selectedUser"></span>
-    <button id="confirmBtn" disabled>Confirm</button>
+    </main>
   </div>
 
   <script src="script.js"></script>

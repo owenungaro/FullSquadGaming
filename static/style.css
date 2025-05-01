@@ -1,0 +1,225 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    height: 100%;
+    font-family: "gg sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #313338;
+    color: #dcddde;
+    overflow: hidden;
+    margin: 0;
+  }
+  
+  
+  .dashboard {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    height: 100vh;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  .sidebar h2 {
+    font-size: 1.2em;
+    border-bottom: 1px solid #34495e;
+    padding-bottom: 0.5em;
+  }
+  
+  .sidebar input,
+  .sidebar button {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .sidebar input {
+    background: #ecf0f1;
+    color: #2c3e50;
+  }
+  
+  .sidebar button {
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .sidebar button:hover {
+    background: #2980b9;
+  }
+  
+  /* Main Panel */
+  .main-panel {
+    padding: 1.5em;
+    display: grid;
+    grid-template-areas:
+      "users inputs"
+      "users actions"
+      "users result";
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.5em;
+    height: 100%;
+  }
+  
+  .user-selection {
+    grid-area: users;
+    background-color: #2b2d31;
+    border-radius: 8px;
+    padding: 1em;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .user-selection h2 {
+    color: #ffffff;
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  
+  #users {
+    flex-grow: 1;
+    background-color: #1e1f22;
+    color: #b9bbbe;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5em;
+    font-size: 0.9em;
+    outline: none;
+    height: 100%;
+    box-shadow: inset 0 0 0 1px #2b2d31;
+  }
+  
+  #users option {
+    background-color: #1e1f22;
+    color: #b9bbbe;
+    padding: 0.5em 0.8em;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.95em;
+    border-bottom: 1px solid #2b2d31;
+  }
+  
+  #users option:hover {
+    background-color: #5865f2;
+    color: white;
+  }
+  
+  #users option:checked {
+    background-color: #3a3c42;
+    color: white;
+  }
+  
+  
+  .inputs {
+    grid-area: inputs;
+  }
+  
+  .actions {
+    grid-area: actions;
+  }
+  
+  .result {
+    grid-area: result;
+  }
+  
+  select, input[type="text"] {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.4em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  select {
+    height: calc(100% - 2em);
+    background-color: #ffffff;
+  }
+  
+  button {
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+  .result {
+    background-color: #e9f7ef;
+    padding: 1em;
+    border-left: 4px solid #28a745;
+    border-radius: 5px;
+  }
+
+  .user-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #2b2d31;
+    border-radius: 8px;
+    padding: 1em;
+    overflow-y: auto;
+    height: 100%;
+  }
+  
+  .user-widget .user-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    background-color: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    color: #b9bbbe;
+  }
+  
+  .user-widget .user-entry:hover {
+    background-color: #3a3c42;
+  }
+  
+  .user-widget .user-entry.selected {
+    background-color: #5865f2;
+    color: #fff;
+  }
+  
+  .user-widget .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #4f545c;
+    flex-shrink: 0;
+  }
+  
+  .user-widget .username {
+    font-size: 0.95em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
