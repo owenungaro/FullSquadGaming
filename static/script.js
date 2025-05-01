@@ -1,74 +1,126 @@
-// grab all the elements we need
-const loadBtn        = document.getElementById('load');
-const guildInput     = document.getElementById('guild');
-const usersSelect    = document.getElementById('users');
-const step2Div       = document.getElementById('step2');
-const step3Div       = document.getElementById('step3');
-const chooseRandomBt = document.getElementById('chooseRandom');
-const resultDiv      = document.getElementById('result');
-const selectedSpan   = document.getElementById('selectedUser');
-const confirmBt      = document.getElementById('confirmBtn');
+const loadBtn = document.getElementById('load');
+const guildInput = document.getElementById('guild');
+const usersSelect = document.getElementById('users');
+const step2Div = document.getElementById('step2');
+const step3Div = document.getElementById('step3');
+const chooseRandomBtn = document.getElementById('chooseRandom');
+const resultDiv = document.getElementById('result');
+const selectedSpan = document.getElementById('selectedUser');
+const confirmBtn = document.getElementById('confirmBtn');
 
-loadBtn.onclick = async () => {
-  const guildId = guildInput.value.trim();
-  if (!guildId) return alert('Please enter a guild ID');
+let selectedUserId = null;
 
-  try {
-    const res   = await fetch(`https://fullsquad-bot.fly.dev/api/users/${guildId}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const users = await res.json();
+//1: Load users
+loadBtn.onclick = async function() {
+    const guildId = guildInput.value.trim();
 
-    usersSelect.innerHTML = '';
-    users.forEach(u => {
-      const opt = document.createElement('option');
-      opt.value       = u.id;
-      opt.textContent = u.name;
-      usersSelect.appendChild(opt);
-    });
+    if(!guildId) {
+        alert('Please enter a guild ID');
+        return;
+    }
 
-    step2Div.style.display = 'none';
-    step3Div.style.display = 'none';
-    resultDiv.style.display = 'none';
-    chooseRandomBt.disabled = true;
-    confirmBt.disabled     = true;
+    try {
+        const response = await fetch(
+            `https://fullsquad-bot.fly.dev/api/users/${guildId}`
+        );
 
-  } catch (e) {
-    alert('Error loading users: ' + e.message);
-  }
+        if(!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const users = await response.json();
+        usersSelect.innerHTML = '';
+
+        for(let u of users) {
+            const option = document.createElement('option');
+            option.value = u.id;
+            option.textContent = u.name;
+            usersSelect.appendChild(option);
+        }
+
+        step2Div.style.display = 'none';
+        step3Div.style.display = 'none';
+        resultDiv.style.display = 'none';
+        chooseRandomBtn.disabled = true;
+        confirmBtn.disabled = true;
+
+    } catch(err) {
+        alert('Error loading users: ' + err.message);
+    }
 };
 
-usersSelect.addEventListener('change', () => {
-  const count = Array.from(usersSelect.selectedOptions)
-                     .filter(o => o.value).length;
+//2: Show next steps once at least 3 are selected
+usersSelect.addEventListener('change', function() {
+    const count = usersSelect.selectedOptions.length;
 
-  if (count >= 3) {
-    step2Div.style.display = '';
-    step3Div.style.display = '';
-    chooseRandomBt.disabled = false;
-  } else {
-    // hide everything downstream
-    step2Div.style.display = 'none';
-    step3Div.style.display = 'none';
-    resultDiv.style.display = 'none';
-    chooseRandomBt.disabled = true;
-    confirmBt.disabled     = true;
-  }
+    if(count >= 3) {
+        step2Div.style.display = '';
+        step3Div.style.display = '';
+        chooseRandomBtn.disabled = false;
+    } else {
+        step2Div.style.display = 'none';
+        step3Div.style.display = 'none';
+        resultDiv.style.display = 'none';
+        chooseRandomBtn.disabled = true;
+        confirmBtn.disabled = true;
+    }
 });
 
-chooseRandomBt.onclick = () => {
-  const chosenOpts = Array.from(usersSelect.selectedOptions)
-                           .filter(o => o.value);
-  if (chosenOpts.length < 3) {
-    return alert('Select at least 3 users to continue');
-  }
+//3: Choose a random user
+chooseRandomBtn.onclick = function() {
+    const options = Array.from(usersSelect.selectedOptions);
+    const randomIndex = Math.floor(Math.random() * options.length);
+    const chosen = options[randomIndex];
 
-  const randomOpt = chosenOpts[Math.floor(Math.random() * chosenOpts.length)];
-  selectedSpan.textContent = randomOpt.textContent;
+    selectedUserId = chosen.value;
+    selectedSpan.textContent = chosen.textContent;
 
-  resultDiv.style.display = '';
-  confirmBt.disabled = false;
+    resultDiv.style.display = '';
+    confirmBtn.disabled = false;
 };
 
-confirmBt.onclick = () => {
+//4: Send prompts
+confirmBtn.onclick = async function() {
+    if(!selectedUserId) {
+        alert('No user chosen!');
+        return;
+    }
 
+    const promptA = document.getElementById('input1').value.trim();
+    const promptB = document.getElementById('input2').value.trim();
+    const userIds = Array
+        .from(usersSelect.selectedOptions)
+        .map(opt => opt.value);
+
+    const payload = {
+        guild_id: guildInput.value.trim(),
+        user_ids: userIds,
+        selected_user: selectedUserId,
+        promptA: promptA,
+        promptB: promptB
+    };
+
+    try {
+        const response = await fetch(
+            'https://fullsquad-bot.fly.dev/api/message',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }
+        );
+
+        const result = await response.json();
+
+        if(!response.ok) {
+            throw new Error(result.detail || response.statusText);
+        }
+
+        alert(result.detail);
+
+    } catch(err) {
+        alert('Failed to send messages: ' + err.message);
+    }
 };
