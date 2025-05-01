@@ -35,7 +35,7 @@ async def listserverusers(guild_id: int):
     return members
 
 async def messageuser(user: discord.User, message: str):
-    user.send(message)
+    await user.send(message)
 
 @app.on_event("startup")
 async def startup_bot():
