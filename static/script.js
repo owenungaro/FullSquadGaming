@@ -39,6 +39,10 @@ loadBtn.onclick = async function () {
       const avatar = document.createElement('div');
       avatar.className = 'avatar';
 
+      avatar.style.backgroundImage = `url(${u.avatar_url})`;
+      avatar.style.backgroundSize = 'cover';
+      avatar.style.backgroundPosition = 'center';
+
       const name = document.createElement('span');
       name.className = 'username';
       name.textContent = u.name;
