@@ -11,11 +11,30 @@
   <input id="guild" type="text" placeholder="Enter guild ID">
   <button id="load">Load Users</button>
 
-  <select id="users" style="width: 300px; margin-top: 1em">
-    <option value="">-- users will appear here --</option>
-  </select>
+  <div style="margin-top:1em;">
+    <select id="users" multiple size="8" style="width:300px;">
+      <option value="" disabled>-- users will appear here --</option>
+    </select>
+  </div>
 
-  <!-- load the JS from the same folder -->
+  <div id="step2" style="display:none; margin-top:1em;">
+    <label for="input1">Input 1:</label>
+    <input id="input1" type="text">
+    <br>
+    <label for="input2">Input 2:</label>
+    <input id="input2" type="text">
+  </div>
+
+  <div id="step3" style="display:none; margin-top:1em;">
+    <button id="chooseRandom" disabled>Choose Random User</button>
+  </div>
+
+  <div id="result" style="display:none; margin-top:1em;">
+    <strong>Selected User:</strong>
+    <span id="selectedUser"></span>
+    <button id="confirmBtn" disabled>Confirm</button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

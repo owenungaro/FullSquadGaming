@@ -34,6 +34,9 @@ async def listserverusers(guild_id: int):
         members.append({"id": m.id, "name": f"{m.name}#{m.discriminator}"})
     return members
 
+async def messageuser(user: discord.User, message: str):
+    user.send(message)
+
 @app.on_event("startup")
 async def startup_bot():
     token = os.getenv("DISCORD_TOKEN")
@@ -45,3 +48,9 @@ async def shutdown_bot():
 
 if __name__ == "__main__":
      uvicorn.run("bot:app", host="0.0.0.0", port=8000)
+
+#DEPLOY
+#flyctl deploy --remote-only -a fullsquad-bot   
+#
+#LOGS
+#flyctl logs -a fullsquad-bot --no-tail  
