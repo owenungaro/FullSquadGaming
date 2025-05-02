@@ -69,7 +69,7 @@
       "users result";
     grid-template-columns: 1fr 1fr;
     grid-gap: 1.5em;
-    height: 100%;
+    height: 100vh;
   }
   
   .user-selection {
@@ -170,7 +170,7 @@
   }
   
   .result {
-    background-color: #e9f7ef;
+    background-color: #2b2d31;
     padding: 1em;
     border-left: 4px solid #28a745;
     border-radius: 5px;
@@ -183,8 +183,8 @@
     background-color: #2b2d31;
     border-radius: 8px;
     padding: 1em;
-    overflow-y: auto;
-    height: 100%;
+    overflow-y: scroll;
+    height: 50%;
   }
   
   .user-widget .user-entry {

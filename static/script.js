@@ -51,13 +51,12 @@ loadBtn.onclick = async function () {
       div.appendChild(name);
       usersContainer.appendChild(div);
 
-      // Toggle selection on click
       div.onclick = function () {
         div.classList.toggle('selected');
 
         const selected = document.querySelectorAll('.user-entry.selected');
 
-        if (selected.length >= 3) {
+        if(selected.length >= 3) {
           step2Div.style.display = '';
           step3Div.style.display = '';
           chooseRandomBtn.disabled = false;
@@ -78,14 +77,17 @@ loadBtn.onclick = async function () {
     confirmBtn.disabled = true;
 
   } catch (err) {
-    alert('Error loading users: ' + err.message);
+    console.log('Error loading users: ' + err.message);
   }
 };
 
 // 2: Choose a random user
 chooseRandomBtn.onclick = function () {
   const options = Array.from(document.querySelectorAll('.user-entry.selected'));
-  if (options.length === 0) return;
+  if(options.length === 0) {
+    console.log("Err")
+    return;
+  }
 
   const randomIndex = Math.floor(Math.random() * options.length);
   const chosen = options[randomIndex];

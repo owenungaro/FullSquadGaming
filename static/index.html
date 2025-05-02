@@ -8,26 +8,21 @@
 <body>
   <div class="dashboard">
     
-    <!-- Sidebar -->
     <aside class="sidebar">
-      <h2>Guild Settings</h2>
-      <label for="guild">Guild ID:</label>
-      <input id="guild" type="text" value="838490967677337610" placeholder="Enter guild ID">
+      <h2>Server Settings</h2>
+      <label for="guild">Server ID:</label>
+      <input id="guild" type="text" value="1161767164286603264" placeholder="Enter guild ID">
       <button id="load">Load Users</button>
     </aside>
     
-    <!-- Main Content -->
     <main class="main-panel">
       
-      <!-- User Selection -->
       <section class="user-selection">
         <h2>Users</h2>
         <div class="user-widget" id="users">
-          <!-- users will be rendered here -->
         </div>        
       </section>
 
-      <!-- Inputs -->
       <section id="step2" class="inputs" style="display:none;">
         <h2>Inputs</h2>
         <label for="input1">Input 1:</label>
@@ -36,12 +31,10 @@
         <input id="input2" type="text">
       </section>
 
-      <!-- Actions -->
       <section id="step3" class="actions" style="display:none;">
         <button id="chooseRandom" disabled>Choose Random User</button>
       </section>
 
-      <!-- Result -->
       <section id="result" class="result" style="display:none;">
         <strong>Selected User:</strong>
         <span id="selectedUser"></span>
