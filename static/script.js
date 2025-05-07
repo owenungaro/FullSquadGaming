@@ -79,6 +79,18 @@ loadBtn.onclick = async function () {
   } catch (err) {
     console.log('Error loading users: ' + err.message);
   }
+
+const userSearchInput = document.getElementById('userSearch');
+
+userSearchInput.addEventListener('input', () => {
+  const query = userSearchInput.value.toLowerCase();
+  const allUsers = usersContainer.querySelectorAll('.user-entry');
+
+  allUsers.forEach(user => {
+    const name = user.querySelector('.username').textContent.toLowerCase();
+    user.style.display = name.includes(query) ? '' : 'none';
+  });
+});
 };
 
 // 2: Choose a random user
