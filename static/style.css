@@ -125,12 +125,20 @@ body {
   white-space: nowrap;
 }
 
-/* Inputs & Actions */
 .inputs, .actions, .result {
-  background-color: #2f3136;
-  border-radius: 4px;
-  padding: 16px;
+  min-height: 120px; /* Ensures vertical alignment */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  visibility: hidden; /* Initially hidden, but takes up space */
 }
+
+.actions.visible,
+.result.visible,
+.inputs.visible {
+  visibility: visible;
+}
+
 
 .inputs label {
   display: block;

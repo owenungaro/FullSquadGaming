@@ -57,22 +57,23 @@ loadBtn.onclick = async function () {
         const selected = document.querySelectorAll('.user-entry.selected');
 
         if(selected.length >= 3) {
-          step2Div.style.display = '';
-          step3Div.style.display = '';
+          step2Div.classList.add('visible');
+          step3Div.classList.add('visible');
+          resultDiv.classList.add('visible');
           chooseRandomBtn.disabled = false;
         } else {
-          step2Div.style.display = 'none';
-          step3Div.style.display = 'none';
-          resultDiv.style.display = 'none';
+          step2Div.classList.remove('visible');
+          step3Div.classList.remove('visible');
+          resultDiv.classList.remove('visible');
           chooseRandomBtn.disabled = true;
           confirmBtn.disabled = true;
         }
       };
     }
 
-    step2Div.style.display = 'none';
-    step3Div.style.display = 'none';
-    resultDiv.style.display = 'none';
+    step2Div.classList.remove('visible');
+    step3Div.classList.remove('visible');
+    resultDiv.classList.remove('visible');
     chooseRandomBtn.disabled = true;
     confirmBtn.disabled = true;
 
@@ -107,7 +108,7 @@ chooseRandomBtn.onclick = function () {
   selectedUserId = chosen.dataset.id;
   selectedSpan.textContent = chosen.querySelector('.username').textContent;
 
-  resultDiv.style.display = '';
+  resultDiv.classList.add('visible');
   confirmBtn.disabled = false;
 };
 
